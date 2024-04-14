@@ -272,7 +272,7 @@ input {
     .playbar {
         right: 25px;
     }
-    .bg-img {
+    /* .bg-img {
         background-image: url('/images/progress.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -283,7 +283,7 @@ input {
         top: 0;
         left: 0;
         z-index: -1;
-    }
+    } */
     
 }
 

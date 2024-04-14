@@ -57,7 +57,7 @@ body {
     cursor: pointer;
 }
 
-.bg-img {
+/* .bg-img {
     background-image: url('/images/progress.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -68,7 +68,7 @@ body {
     top: 0;
     left: 0;
     z-index: -1;
-}
+} */
 a{
     text-decoration: none;
     color: white;

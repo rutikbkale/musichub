@@ -2,7 +2,7 @@ console.log("start");
 let audio = new Audio();
 let songs;
 async function getSongs() {
-    let list = await fetch("/Songs/");
+    let list = await fetch("Songs/");
     let res = await list.text();
     console.log(res);
     let div = document.createElement("div");
@@ -12,7 +12,7 @@ async function getSongs() {
     for (let index = 0; index < link.length; index++) {
         const element = link[index];
         if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split("/Songs/")[1])
+            songs.push(element.href.split("Songs/")[1])
         }
     }
     return songs;
@@ -24,12 +24,12 @@ async function main() {
     let ul = document.querySelector(".song-card").getElementsByTagName("ul")[0];
     for (const song of songs) {
         ul.innerHTML = ul.innerHTML + `<li class="flex gap align-center cursor">
-                <img src="/images/music.svg" alt="" class="invert">
+                <img src="images/music.svg" alt="" class="invert">
                 <div class="info">
                   <div class="song-name">${(song.replaceAll("%20", " "))}</div>
                 </div>
                 <div class="playNow flex gap align-center">
-                  <img src="/images/play.svg" alt="" class="invert">
+                  <img src="images/play.svg" alt="" class="invert">
                 </div>
                </li>`;
     }
@@ -53,11 +53,11 @@ async function main() {
     play.addEventListener("click", () => {
         if (audio.paused) {
             audio.play();
-            play.src = "/images/pause.svg";
+            play.src = "images/pause.svg";
         }
         else {
             audio.pause();
-            play.src = "/images/play.svg";
+            play.src = "images/play.svg";
         }
     })
 
@@ -126,9 +126,9 @@ async function main() {
 }
 
 const playM = (a) => {
-    audio.src = "/Songs/" + a;
+    audio.src = "Songs/" + a;
     audio.play();
-    play.src = "/images/pause.svg";
+    play.src = "images/pause.svg";
     document.querySelector(".s-name").innerHTML = a.replaceAll("%20", " ").replaceAll(".mp3", " ");
 }
 
