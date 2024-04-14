@@ -1,22 +1,56 @@
 console.log("start");
 let audio = new Audio();
 let songs;
+// async function getSongs() {
+//     let list = await fetch("Songs/");
+//     let res = await list.text();
+//     console.log(res);
+//     let div = document.createElement("div");
+//     div.innerHTML = res;
+//     let link = div.getElementsByTagName("a");
+//     songs = [];
+//     for (let index = 0; index < link.length; index++) {
+//         const element = link[index];
+//         if (element.href.endsWith(".mp3")) {
+//             songs.push(element.href.split("Songs/")[1])
+//         }
+//     }
+//     return songs;
+// }
+
 async function getSongs() {
-    let list = await fetch("Songs/");
-    let res = await list.text();
-    console.log(res);
+    // Fetch the list of songs from the server
+    let response = await fetch("Songs/");
+
+    // Check if the fetch operation was successful
+    if (!response.ok) {
+        throw new Error('Failed to fetch songs');
+    }
+
+    // Parse the response text as HTML
+    let html = await response.text();
+
+    // Create a temporary div element to parse the HTML
     let div = document.createElement("div");
-    div.innerHTML = res;
-    let link = div.getElementsByTagName("a");
-    songs = [];
-    for (let index = 0; index < link.length; index++) {
-        const element = link[index];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split("Songs/")[1])
+    div.innerHTML = html;
+
+    // Get all <a> tags from the parsed HTML
+    let links = div.getElementsByTagName("a");
+
+    let songs = [];
+    // Iterate over the links and extract the MP3 URLs
+    for (let i = 0; i < links.length; i++) {
+        let link = links[i];
+        // Check if the link ends with ".mp3"
+        if (link.href.endsWith(".mp3")) {
+            // Extract the MP3 filename from the URL
+            let mp3Url = link.href.split("Songs/")[1];
+            songs.push(mp3Url);
         }
     }
     return songs;
 }
+
 
 async function main() {
     let songs = await getSongs();
@@ -116,10 +150,10 @@ async function main() {
             playM(songName);
         });
     });
-    
-    document.querySelectorAll(".btn").forEach(btn =>{
-        btn.addEventListener("click", ()=>{
-            window.location.href="progress.html";
+
+    document.querySelectorAll(".btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            window.location.href = "progress.html";
         });
     });
 
